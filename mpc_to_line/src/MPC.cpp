@@ -93,7 +93,7 @@ class FG_eval {
 
     // The rest of the constraints
     for (int t = 1; t < N; t++) {
-      
+
      // The state at time t+1 .
      AD<double> x1 = vars[x_start + t];
      AD<double> y1 = vars[y_start + t];
@@ -304,7 +304,7 @@ int main() {
   ptsy << -1, -1;
 
   // TODO: fit a polynomial to the above x and y coordinates
-  auto coeffs = polyfit(ptsx, ptsy, 3);
+  auto coeffs = polyfit(ptsx, ptsy, 1);
 
   // NOTE: free feel to play around with these
   double x = -1;
@@ -314,7 +314,7 @@ int main() {
   // TODO: calculate the cross track error
   double cte = polyeval(coeffs, x) - y;
   // TODO: calculate the orientation error
-  double epsi = tan(polyeval(coeff, x));
+  double epsi = psi - atan(polyeval(coeff, x));
 
   Eigen::VectorXd state(6);
   state << x, y, psi, v, cte, epsi;
